@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	
+    <title>Tasks List</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+
+<body>
+
+    <div class="container">
+        <h2 class="mt-5">List of Tasks</h2>
+
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Task ID</th>
+                    <th>Username</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th> <!-- Add Actions column -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Iterate through the tasks list and display each task's details -->
+                <tr th:each="task : ${ready}">
+                    <td th:text="${task.id}"></td>
+                    <td th:text="${task.username}"></td>
+                    <td th:text="${task.description}"></td>
+                    <td th:text="${task.localdate}"></td>
+                    <td th:text="${task.done} ? 'Done' : 'Pending'"></td>
+                    <td>
+                        <!-- Delete link inside the loop -->
+                        <a th:href="@{/updatetask(id=${task.id})}" class="btn btn-primary">Update</a>
+                        <a th:href="@{/deletetask(id=${task.id})}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Add task link outside of the loop -->
+    <a th:href="@{/addtask}" class="button">Add New Task</a>
+
+</body>
+
+</html>
